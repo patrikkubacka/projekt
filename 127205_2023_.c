@@ -1,36 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void v()
 {
-    char sign;
+    char line[300];
     FILE *f = fopen("dataloger.txt", "r");
-    char row;
+    int poc = 0;
     if (f == NULL)
     {
         printf("Neotvoreny subor\n");
     }
     if (f != NULL)
     {
-        while (sign != EOF)
+
+        while (fgets(line, sizeof(line), f) != NULL)
         {
-            while (sign != '\n'){
-                fscanf(f, "%c", &row);
-                printf("ID. mer. modulu: %c\n", row);
-                //printf("Pozícia modulu: %s\n",);
-                //printf("Typ mer. veliciny: %s\n",);
-                //printf("Hodnota: %s\n",);
-                //printf("Cas merania: %s\n",);
-                //printf("Datum merania: %s\n",);
-                printf("\n");
+            switch (poc)
+            {
+            case 0:
+                printf("ID. mer. modulu: ");
+                break;
+            case 1:
+                printf("Pozícia modulu: ");
+                break;
+            case 2:
+                printf("Typ mer. veliciny: ");
+                break;
+            case 3:
+                printf("Hodnota: ");
+                break;
+            case 4:
+                printf("Cas merania: ");
+                break;
+            case 5:
+                printf("Datum merania: ");
+                break;
+            case 6:
+                poc = -1;
+                break;
             }
-            
+            printf("%s", line);
+            poc++;
         }
     }
 }
 
 void n()
 {
+    FILE *f = fopen("dataloger.txt", "r");
+    char line[100];
+    int count = 1;
+    while (fgets(line, sizeof(line), f) != NULL) // ráta počet záznamov v subore dataloger
+    {
+        if (line[0] == '\n')
+        {
+            count++;
+        }
+    }
+}
+
+void c()
+{
+    int y;
+    scanf("%d", &y);
+    FILE *file = fopen("ciachovanie.txt", "r");
 }
 
 int main(void)
@@ -42,13 +76,22 @@ int main(void)
     case 'v':
         v();
         break;
-    /*case 'n':
+    case 'n':
         n();
         break;
+        /*
     case 'c':
         c();
         break;
-    }
-    */
+    case 's':
+        s();
+        break;
+    case 'h':
+        h();
+        break;
+    case 'k':
+        k();
+        break;
+        */
     }
 }
