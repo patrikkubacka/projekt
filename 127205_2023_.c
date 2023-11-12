@@ -312,61 +312,60 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
     else
     {
         double *temp_hodnota = (double *)malloc((*number) * sizeof(double));
+        char **temp_id = (char **)malloc((*number) * sizeof(char *));
+        char **temp_typ = (char **)malloc((*number) * sizeof(char *));
+        char **temp_poz = (char **)malloc((*number) * sizeof(char *));
+        char **temp_cas = (char **)malloc((*number) * sizeof(char *));
+        char **temp_dat = (char **)malloc((*number) * sizeof(char *));
 
         for (int i = 0; i < *number; i++)
         {
             temp_hodnota[i] = (*Hodnota)[i];
+            temp_id[i] = (*ID_mer_mod)[i];
+            temp_typ[i] = (*Typ_mer_vel)[i];
+            temp_poz[i] = (*Poz_mod)[i];
+            temp_cas[i] = (*Cas_mer)[i];
+            temp_dat[i] = (*Dat_mer)[i];
         }
         free(*Hodnota);
+        free(*ID_mer_mod);
+        free(*Typ_mer_vel);
+        free(*Cas_mer);
+        free(*Dat_mer);
+        free(*Poz_mod);
 
         scanf("%s", ID);
         for (int i = 0; i < *number; i++)
         {
-            if (compare((*ID_mer_mod)[i], ID) == 1)
+            if (compare(temp_id[i], ID) == 1)
             {
-                free((*ID_mer_mod)[i]);
-                (*ID_mer_mod)[i] = NULL;
-                free((*Poz_mod)[i]);
-                (*Poz_mod)[i] = NULL;
-                free((*Typ_mer_vel)[i]);
-                (*Typ_mer_vel)[i] = NULL;
-                free((*Cas_mer)[i]);
-                (*Cas_mer)[i] = NULL;
-                free((*Dat_mer)[i]);
-                (*Dat_mer)[i] = NULL;
                 poc++;
             }
         }
         *Hodnota = (double *)malloc(((*number) - poc) * sizeof(double));
+        *ID_mer_mod = (char **)malloc(((*number) - poc) * sizeof(char *));
+        *Poz_mod = (char **)malloc(((*number) - poc) * sizeof(char *));
+        *Typ_mer_vel = (char **)malloc(((*number) - poc) * sizeof(char *));
+        *Cas_mer = (char **)malloc(((*number) - poc) * sizeof(char *));
+        *Dat_mer = (char **)malloc(((*number) - poc) * sizeof(char *));
+
         int x = 0;
         for (int i = 0; i < *number; i++)
         {
-            if ((*ID_mer_mod)[i] != NULL)
+            if (compare(temp_id[i], ID) != 1)
             {
-                (*ID_mer_mod)[x] = (*ID_mer_mod)[i];
-                (*Poz_mod)[x] = (*Poz_mod)[i];
-                (*Typ_mer_vel)[x] = (*Typ_mer_vel)[i];
+
+                (*ID_mer_mod)[x] = (temp_id)[i];
+                (*Poz_mod)[x] = (temp_poz)[i];
+                (*Typ_mer_vel)[x] = (temp_typ)[i];
                 (*Hodnota)[x] = (temp_hodnota)[i];
-                (*Cas_mer)[x] = (*Cas_mer)[i];
-                (*Dat_mer)[x] = (*Dat_mer)[i];
+                (*Cas_mer)[x] = (temp_cas)[i];
+                (*Dat_mer)[x] = (temp_dat)[i];
                 x++;
             }
         }
         printf("Vymazalo sa: %d zaznamov!\n", poc);
 
-        for (int i = (*number - poc); i < *number; i++)
-        {
-            free((*ID_mer_mod)[i]);
-            (*ID_mer_mod)[i] = NULL;
-            free((*Poz_mod)[i]);
-            (*Poz_mod)[i] = NULL;
-            free((*Typ_mer_vel)[i]);
-            (*Typ_mer_vel)[i] = NULL;
-            free((*Cas_mer)[i]);
-            (*Cas_mer)[i] = NULL;
-            free((*Dat_mer)[i]);
-            (*Dat_mer)[i] = NULL;
-        }
         *number = *number - poc;
     }
 }
