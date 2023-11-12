@@ -282,8 +282,13 @@ void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n)
     }
 }
 
-void h(int pressed_n, char **Typ_mer_vel, int number)
+void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
 {
+    int count_field[6] = {0};
+    double max_field[6] = {0};
+    double min_field[6] = {0};
+    char *typ_field[6] = {"RM", "RD", "RO", "PI", "PE", "PA"};
+
     if (pressed_n == 0)
     {
         printf("Polia nie su vytvorene.\n");
@@ -293,7 +298,127 @@ void h(int pressed_n, char **Typ_mer_vel, int number)
     {
         for (int i = 0; i < number; i++)
         {
-            compare(Typ_mer_vel[i], "RM") == 1;
+            if (compare(Typ_mer_vel[i], "RM") == 1)
+            {
+                count_field[0]++;
+                if (count_field[0] == 1)
+                {
+                    max_field[0] = min_field[0] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[0] < Hodnota[i])
+                    {
+                        max_field[0] = Hodnota[i];
+                    }
+                    if (min_field[0] > Hodnota[i])
+                    {
+                        min_field[0] = Hodnota[i];
+                    }
+                }
+            }
+            if (compare(Typ_mer_vel[i], "RD") == 1)
+            {
+                count_field[1]++;
+                if (count_field[1] == 1)
+                {
+                    max_field[1] = min_field[1] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[1] < Hodnota[i])
+                    {
+                        max_field[1] = Hodnota[i];
+                    }
+                    if (min_field[1] > Hodnota[i])
+                    {
+                        min_field[1] = Hodnota[i];
+                    }
+                }
+            }
+            if (compare(Typ_mer_vel[i], "RO") == 1)
+            {
+                count_field[2]++;
+                if (count_field[2] == 1)
+                {
+                    max_field[2] = min_field[2] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[2] < Hodnota[i])
+                    {
+                        max_field[2] = Hodnota[i];
+                    }
+                    if (min_field[2] > Hodnota[i])
+                    {
+                        min_field[2] = Hodnota[i];
+                    }
+                }
+            }
+            if (compare(Typ_mer_vel[i], "PI") == 1)
+            {
+                count_field[3]++;
+                if (count_field[3] == 1)
+                {
+                    max_field[3] = min_field[3] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[3] < Hodnota[i])
+                    {
+                        max_field[3] = Hodnota[i];
+                    }
+                    if (min_field[3] > Hodnota[i])
+                    {
+                        min_field[3] = Hodnota[i];
+                    }
+                }
+            }
+            if (compare(Typ_mer_vel[i], "PE") == 1)
+            {
+                count_field[4]++;
+                if (count_field[4] == 1)
+                {
+                    max_field[4] = min_field[4] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[4] < Hodnota[i])
+                    {
+                        max_field[4] = Hodnota[i];
+                    }
+                    if (min_field[4] > Hodnota[i])
+                    {
+                        min_field[4] = Hodnota[i];
+                    }
+                }
+            }
+            if (compare(Typ_mer_vel[i], "PA") == 1)
+            {
+                count_field[5]++;
+                if (count_field[5] == 1)
+                {
+                    max_field[5] = min_field[5] = Hodnota[i];
+                }
+                else
+                {
+                    if (max_field[5] < Hodnota[i])
+                    {
+                        max_field[5] = Hodnota[i];
+                    }
+                    if (min_field[5] > Hodnota[i])
+                    {
+                        min_field[5] = Hodnota[i];
+                    }
+                }
+            }
+        }
+        printf("Typ \t\t Pocetnost \t Minimum \t\t Maximum\n");
+        for (int i = 0; i < 6; i++)
+        {
+            if(count_field[i] != 0){
+                printf("%s \t\t %d \t\t %lf \t\t %lf\n", typ_field[i], count_field[i], min_field[i], max_field[i]);
+            }
         }
     }
 }
@@ -401,7 +526,7 @@ int main(void)
             break;
 
         case 'h':
-            h(pressed_n, Typ_mer_vel, number);
+            h(pressed_n, Typ_mer_vel, number, Hodnota);
             break;
 
         case 'z':
