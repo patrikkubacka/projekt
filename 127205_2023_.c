@@ -78,7 +78,7 @@ void v(FILE **f, int pressed_n, int *pressed_v, char **ID_mer_mod, char **Poz_mo
 
 void n(FILE *f, int *pressed_n, int pressed_v, char ***ID_mer_mod, char ***Poz_mod, char ***Typ_mer_vel, double **Hodnota, char ***Cas_mer, char ***Dat_mer, int *number)
 {
-    if (pressed_v == 0) // ak nebolo stlacene v tak subor nebol otvoreny
+    if (pressed_v == 0) // ak nebolo stlacene 'v' tak subor nebol otvoreny
     {
         printf("Neotvoreny subor.\n");
         *pressed_n = 0;
@@ -115,14 +115,14 @@ void n(FILE *f, int *pressed_n, int pressed_v, char ***ID_mer_mod, char ***Poz_m
 
         *ID_mer_mod = (char **)malloc(counter * sizeof(char *));
         *Poz_mod = (char **)malloc(counter * sizeof(char *));
-        *Typ_mer_vel = (char **)malloc(counter * sizeof(char *));
+        *Typ_mer_vel = (char **)malloc(counter * sizeof(char *)); // vytvorí dyn. polia
         *Hodnota = (double *)malloc(counter * sizeof(double));
         *Cas_mer = (char **)malloc(counter * sizeof(char *));
         *Dat_mer = (char **)malloc(counter * sizeof(char *));
 
         char row[100];
         double cislo;
-        fseek(f, 0, SEEK_SET);
+        fseek(f, 0, SEEK_SET); // posunie sa na zaciatok suboru
 
         for (int i = 0; i < counter; i++)
         {
@@ -227,6 +227,7 @@ void c(char **ID_mer_mod, int number, char **Dat_mer, int pressed_n)
         {
             printf("Data su korektné.");
         }
+        printf("\n");
     }
 }
 
@@ -248,7 +249,7 @@ int compare(char *first_c, char *second_c)
     return 0;
 }
 
-void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n)
+void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n, double *Hodnota, char **Poz_mod, char **Cas_mer, char **Dat_mer)
 {
     char ID[6];
     char TYP[3];
@@ -263,6 +264,12 @@ void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n)
 
     else
     {
+        ID_mer_mod = (char **)malloc(c * sizeof(char *));
+        Poz_mod = (char **)malloc(c * sizeof(char *));
+        Typ_mer_vel = (char **)malloc(c * sizeof(char *));
+        Hodnota = (double *)malloc(c * sizeof(double));
+        Cas_mer = (char **)malloc(c * sizeof(char *));
+        Dat_mer = (char **)malloc(c * sizeof(char *));
         for (int i = 0; i < number; i++) // ráta pocet zaznamov v subore rovnakych so vstupom
         {
             if (compare(ID_mer_mod[i], ID) == 1)
@@ -271,9 +278,22 @@ void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n)
                 {
                     c += 1;
                 }
+                else
+                {
+                    printf("Pre dany vstup neexistuju zaznamy.\n");
+                }
             }
         }
 
+        FILE *vystup = fopen("vystup_S.txt", "w");
+        if (fclose(vystup) == 0)
+        {
+            printf("pre dany vstup je vytvoreny txt subor.\n");
+        }
+        else
+        {
+            printf("pre dany vstup nie je vytvoreny txt subor.\n");
+        }
         if (c == 0)
         { // ak nie su ziadne rovnake zaznamy ako vstup tak vypise ze neexistuju
             printf("Pre dany vstup neexistuju zaznamy.");
@@ -416,10 +436,12 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
         printf("Typ \t\t Pocetnost \t Minimum \t\t Maximum\n");
         for (int i = 0; i < 6; i++)
         {
-            if(count_field[i] != 0){
+            if (count_field[i] != 0)
+            {
                 printf("%s \t\t %d \t\t %lf \t\t %lf\n", typ_field[i], count_field[i], min_field[i], max_field[i]);
             }
         }
+        printf("\n");
     }
 }
 
@@ -489,7 +511,16 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
                 x++;
             }
         }
+
+        free(temp_id);
+        free(temp_hodnota);
+        free(temp_cas);
+        free(temp_dat);
+        free(temp_typ);
+        free(temp_poz);
+
         printf("Vymazalo sa: %d zaznamov!\n", poc);
+        printf("\n");
 
         *number = *number - poc;
     }
@@ -522,7 +553,7 @@ int main(void)
             break;
 
         case 's':
-            s(ID_mer_mod, Typ_mer_vel, number, pressed_n);
+            s(ID_mer_mod, Typ_mer_vel, number, pressed_n, Hodnota, Poz_mod, Cas_mer, Dat_mer);
             break;
 
         case 'h':
