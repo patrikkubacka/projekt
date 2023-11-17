@@ -231,7 +231,7 @@ void c(char **ID_mer_mod, int number, char **Dat_mer, int pressed_n)
     }
 }
 
-int compare(char *first_c, char *second_c)
+int compare(char *first_c, char *second_c) // porovna dva stringy a zisti ci sa rovnaju
 {
     while (*first_c != '\0' && *second_c != '\0')
     {
@@ -304,9 +304,9 @@ void s(char **ID_mer_mod, char **Typ_mer_vel, int number, int pressed_n, double 
 
 void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
 {
-    int count_field[6] = {0};
-    double max_field[6] = {0};
-    double min_field[6] = {0};
+    int count_field[6] = {0};  // pole pre pocitanie zaznamov
+    double max_field[6] = {0}; // pole na maximum
+    double min_field[6] = {0}; // pole na minimum
     char *typ_field[6] = {"RM", "RD", "RO", "PI", "PE", "PA"};
 
     if (pressed_n == 0)
@@ -318,16 +318,16 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
     {
         for (int i = 0; i < number; i++)
         {
-            if (compare(Typ_mer_vel[i], "RM") == 1)
+            if (compare(Typ_mer_vel[i], "RM") == 1) // zistuje pocet zaznamov 'RM'
             {
                 count_field[0]++;
                 if (count_field[0] == 1)
                 {
-                    max_field[0] = min_field[0] = Hodnota[i];
+                    max_field[0] = min_field[0] = Hodnota[i]; // nastavi min aj max na prvu hodnotu ktoru bude neskor prepisovat
                 }
                 else
                 {
-                    if (max_field[0] < Hodnota[i])
+                    if (max_field[0] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[0] = Hodnota[i];
                     }
@@ -337,7 +337,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                     }
                 }
             }
-            if (compare(Typ_mer_vel[i], "RD") == 1)
+            if (compare(Typ_mer_vel[i], "RD") == 1) // zistuje pocet zaznamov 'RD'
             {
                 count_field[1]++;
                 if (count_field[1] == 1)
@@ -346,7 +346,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                 }
                 else
                 {
-                    if (max_field[1] < Hodnota[i])
+                    if (max_field[1] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[1] = Hodnota[i];
                     }
@@ -356,7 +356,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                     }
                 }
             }
-            if (compare(Typ_mer_vel[i], "RO") == 1)
+            if (compare(Typ_mer_vel[i], "RO") == 1) // zistuje pocet zaznamov 'RO'
             {
                 count_field[2]++;
                 if (count_field[2] == 1)
@@ -365,7 +365,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                 }
                 else
                 {
-                    if (max_field[2] < Hodnota[i])
+                    if (max_field[2] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[2] = Hodnota[i];
                     }
@@ -375,7 +375,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                     }
                 }
             }
-            if (compare(Typ_mer_vel[i], "PI") == 1)
+            if (compare(Typ_mer_vel[i], "PI") == 1) // zistuje pocet zaznamov 'PI'
             {
                 count_field[3]++;
                 if (count_field[3] == 1)
@@ -384,7 +384,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                 }
                 else
                 {
-                    if (max_field[3] < Hodnota[i])
+                    if (max_field[3] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[3] = Hodnota[i];
                     }
@@ -394,7 +394,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                     }
                 }
             }
-            if (compare(Typ_mer_vel[i], "PE") == 1)
+            if (compare(Typ_mer_vel[i], "PE") == 1) // zistuje pocet zaznamov 'PE'
             {
                 count_field[4]++;
                 if (count_field[4] == 1)
@@ -403,7 +403,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                 }
                 else
                 {
-                    if (max_field[4] < Hodnota[i])
+                    if (max_field[4] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[4] = Hodnota[i];
                     }
@@ -413,7 +413,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                     }
                 }
             }
-            if (compare(Typ_mer_vel[i], "PA") == 1)
+            if (compare(Typ_mer_vel[i], "PA") == 1) // zistuje pocet zaznamov 'PA'
             {
                 count_field[5]++;
                 if (count_field[5] == 1)
@@ -422,7 +422,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
                 }
                 else
                 {
-                    if (max_field[5] < Hodnota[i])
+                    if (max_field[5] < Hodnota[i]) // zistuje max a min hodnotu
                     {
                         max_field[5] = Hodnota[i];
                     }
@@ -434,7 +434,7 @@ void h(int pressed_n, char **Typ_mer_vel, int number, double *Hodnota)
             }
         }
         printf("Typ \t\t Pocetnost \t Minimum \t\t Maximum\n");
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++) // vypisuje vystup
         {
             if (count_field[i] != 0)
             {
@@ -458,7 +458,7 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
 
     else
     {
-        double *temp_hodnota = (double *)malloc((*number) * sizeof(double));
+        double *temp_hodnota = (double *)malloc((*number) * sizeof(double)); // vytvaram docasne polia
         char **temp_id = (char **)malloc((*number) * sizeof(char *));
         char **temp_typ = (char **)malloc((*number) * sizeof(char *));
         char **temp_poz = (char **)malloc((*number) * sizeof(char *));
@@ -467,7 +467,7 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
 
         for (int i = 0; i < *number; i++)
         {
-            temp_hodnota[i] = (*Hodnota)[i];
+            temp_hodnota[i] = (*Hodnota)[i]; // prepisujem data do docasnych poli
             temp_id[i] = (*ID_mer_mod)[i];
             temp_typ[i] = (*Typ_mer_vel)[i];
             temp_poz[i] = (*Poz_mod)[i];
@@ -476,7 +476,7 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
         }
         free(*Hodnota);
         free(*ID_mer_mod);
-        free(*Typ_mer_vel);
+        free(*Typ_mer_vel); // vymazavam data z poli
         free(*Cas_mer);
         free(*Dat_mer);
         free(*Poz_mod);
@@ -484,14 +484,14 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
         scanf("%s", ID);
         for (int i = 0; i < *number; i++)
         {
-            if (compare(temp_id[i], ID) == 1)
+            if (compare(temp_id[i], ID) == 1) // zistujem pocet dat ktore neboli vymazane
             {
                 poc++;
             }
         }
         *Hodnota = (double *)malloc(((*number) - poc) * sizeof(double));
         *ID_mer_mod = (char **)malloc(((*number) - poc) * sizeof(char *));
-        *Poz_mod = (char **)malloc(((*number) - poc) * sizeof(char *));
+        *Poz_mod = (char **)malloc(((*number) - poc) * sizeof(char *)); // vytvaram nove polia bez vymazanych dat
         *Typ_mer_vel = (char **)malloc(((*number) - poc) * sizeof(char *));
         *Cas_mer = (char **)malloc(((*number) - poc) * sizeof(char *));
         *Dat_mer = (char **)malloc(((*number) - poc) * sizeof(char *));
@@ -504,7 +504,7 @@ void z(int pressed_n, int *number, char ***ID_mer_mod, char ***Poz_mod, char ***
 
                 (*ID_mer_mod)[x] = (temp_id)[i];
                 (*Poz_mod)[x] = (temp_poz)[i];
-                (*Typ_mer_vel)[x] = (temp_typ)[i];
+                (*Typ_mer_vel)[x] = (temp_typ)[i]; // plnim nevymazane polia
                 (*Hodnota)[x] = (temp_hodnota)[i];
                 (*Cas_mer)[x] = (temp_cas)[i];
                 (*Dat_mer)[x] = (temp_dat)[i];
